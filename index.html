@@ -14,13 +14,13 @@
 <!-- ╚══════════════════════════════════════╝ -->
 <header>
   <a class="logo-container" href="index.html">
-    <img src="logo.jpg" alt="Ideja Logo">
+    <img src="logo_transparent.png" alt="Ideja Logo">
     <h1>Идеја</h1>
   </a>
 
   <nav>
-    <a href="#toys">Играчки</a>
-    <a href="#home">За Дом</a>
+    <a class="nav-link" href="categories.html">Производи</a>
+    <a href="#about">За Нас</a>
     <a id="translateBtn" onclick="toggleLang()" style="cursor:pointer;">EN</a>
     <!-- AUTH AREA: shows login button OR user chip -->
     <div id="authArea" style="display:contents;"></div>
@@ -35,44 +35,34 @@
 <!-- ║           HERO                       ║ -->
 <!-- ╚══════════════════════════════════════╝ -->
 <section class="hero">
-  <div class="hero-text">
-    <h2>Играчки и производи за дом</h2>
-    <p>Квалитетни производи за секој дом и секое дете. Огромен избор на подароци, куќни декорации и играчки.</p>
+  <div class="hero-content">
+    <div class="hero-logo">
+      <img src="logo_transparent.png" alt="Ideja Logo">
+    </div>
+    <div class="hero-decoration"></div>
+    <p class="hero-description">Откријте широка палета од квалитетни производи, украси и играчки за вашата семејна. Сите производи се избрани со грижа и соучествување.</p>
     <div class="hero-cta">
-      <a href="#toys" class="btn-primary">Разгледај Играчки</a>
-      <a href="#home" class="btn-secondary">Производи за Дом</a>
+      <a href="category-home.html" class="btn-primary">Производи за Дом</a>
+      <a href="category-kids.html" class="btn-secondary">Производи за Деца</a>
     </div>
-  </div>
-  <div class="hero-image">
-    <img src="logo.jpg" alt="Ideja Logo">
   </div>
 </section>
 
-<!-- ╔══════════════════════════════════════╗ -->
-<!-- ║            TOYS SECTION              ║ -->
-<!-- ╚══════════════════════════════════════╝ -->
-<section id="toys" class="section">
+<section class="section main-categories-only">
   <div class="section-header">
     <div>
-      <h2>Играчки</h2>
-      <p class="section-subtitle">Квалитетни играчки за деца од сите возрасти</p>
+      <h2>Категории</h2>
+      <p class="section-subtitle">Избери главна категорија и пронајди производи што те интересираат.</p>
     </div>
   </div>
-  <div class="grid" id="toysGrid"></div>
+  <div class="main-categories-grid" id="mainCategoriesGrid"></div>
 </section>
 
-<!-- ╔══════════════════════════════════════╗ -->
-<!-- ║           HOME SECTION               ║ -->
-<!-- ╚══════════════════════════════════════╝ -->
-<section id="home" class="section">
-  <div class="section-header">
-    <div>
-      <h2>Производи за Дом</h2>
-      <p class="section-subtitle">Украси и практични производи за вашиот дом</p>
-    </div>
-  </div>
-  <div class="grid" id="homeGrid"></div>
-</section>
+<!-- Hidden products section that loads on full page -->
+<section class="section" id="productsContainer" style="display:none;"></section>
+
+
+<section id="productsContainer"></section>
 
 <!-- ╔══════════════════════════════════════╗ -->
 <!-- ║              FOOTER                  ║ -->
@@ -84,9 +74,11 @@
   <p style="margin-top:8px;">
     Instagram: <a href="https://www.instagram.com/ideja.kumanovo/" target="_blank">@ideja.kumanovo</a>
   </p>
+  <div class="footer-contact" id="footerContact"></div>
+  <div class="footer-decription" id="footerDescription"></div>
 </footer>
 
-<!-- ╔══════════════════════════════════════╗ -->
+<!-- ╔══════════════════════════════════════╗
 <!-- ║            CART SIDEBAR              ║ -->
 <!-- ╚══════════════════════════════════════╝ -->
 <div class="cart-overlay" id="cartOverlay"></div>
@@ -131,7 +123,7 @@
   <div class="modal">
     <button class="modal-close" onclick="closeLoginModal()">✕</button>
     <div class="modal-logo">
-      <img src="logo.jpg" alt="Ideja">
+      <img src="logo_transparent.png" alt="Ideja">
     </div>
     <h3>Добредојде</h3>
     <p class="modal-sub">Влези или регистрирај се</p>

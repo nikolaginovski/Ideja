@@ -49,7 +49,38 @@ const products = [
   { id: 38, category: "home", name: "Украс 096-32", price: 480, img: "excel photos/096-32.jpg", badge: null, description: "Декоративен украс од добро избрани материјали. Создава топла атмосфера. За спална соба и дневна. Долготраен." },
   { id: 39, category: "home", name: "Украс 12146", price: 560, img: "excel photos/12146.png", badge: null, description: "Висока квалитета украс. Уметнички дизајн. За колеќционари и љубители на лепи предмети. На полица или маса." },
   { id: 40, category: "home", name: "Украс 12201", price: 590, img: "excel photos/12201.png", badge: "sale", description: "Премиум украс за дом. Елегантна композиција. За лаксузна декорација. Совршена инвестиција во домот." },
+  { id: 41, category: "veligden", name: "Велигденска декорација", price: 450, img: "excel photos/2077.jpg", badge: "new", description: "Свежа атмосфера за Велигден, шарени јајца и пролетен дизајн." },
+  { id: 42, category: "sliki", name: "Дрвена рамка за слики", price: 320, img: "excel photos/K183A10.jpg", badge: null, description: "Квалитетна рамка за ваши омилени моменти." },
+  { id: 43, category: "mebel", name: "Мала полица од дрво", price: 890, img: "excel photos/096-12.jpg", badge: null, description: "Прекрасна за дневна: функционална и стилска." },
+  { id: 44, category: "dekoracii", name: "Златна лампа", price: 1290, img: "excel photos/3905.jpg", badge: "sale", description: "Елегантна декорација за домаќинство и подарок." }
 ];
+
+const categoryList = [
+  "plisani igracki", "plis na baterija", "zenski", "maski", "bebeski", "edukativni", "drveni igracki", "turkala", "kutii za poklon", "podlogi", "obuvki", "vestacko cvekje", "ostanato",
+  "ukrasi", "kutii za nakit", "ramki za slika", "ogledala", "vazni", "lampi", "solji", "posluzavnici", "tekstil", "papuci vozrasni", "novogodisno", "leto", "ostanato",
+  "veligden", "sliki", "mebel", "dekoracii"
+];
+
+const mainCategories = {
+  "home": ["ukrasi", "kutii za nakit", "ramki za slika", "ogledala", "vazni", "lampi", "solji", "posluzavnici", "tekstil", "papuci vozrasni", "veligden", "sliki", "mebel", "dekoracii"],
+  "kids": ["plisani igracki", "plis na baterija", "zenski", "maski", "bebeski", "edukativni", "drveni igracki", "turkala", "kutii za poklon", "podlogi", "obuvki", "vestacko cvekje", "ostanato"]
+};
+
+const categoryById = {
+  1: categoryList[0], 2: categoryList[1], 3: categoryList[2], 4: categoryList[3], 5: categoryList[4],
+  6: categoryList[5], 7: categoryList[6], 8: categoryList[7], 9: categoryList[8], 10: categoryList[9],
+  11: categoryList[10], 12: categoryList[11], 13: categoryList[12], 14: categoryList[13], 15: categoryList[14],
+  16: categoryList[15], 17: categoryList[16], 18: categoryList[17], 19: categoryList[18], 20: categoryList[19],
+  21: categoryList[20], 22: categoryList[21], 23: categoryList[22], 24: categoryList[23], 25: categoryList[24],
+  26: categoryList[25], 27: categoryList[0], 28: categoryList[1], 29: categoryList[2], 30: categoryList[3],
+  31: categoryList[4], 32: categoryList[5], 33: categoryList[6], 34: categoryList[7], 35: categoryList[8],
+  36: categoryList[9], 37: categoryList[10], 38: categoryList[11], 39: categoryList[12], 40: categoryList[13],
+  41: categoryList[26], 42: categoryList[27], 43: categoryList[28], 44: categoryList[29]
+};
+
+products.forEach((p) => {
+  p.category = categoryById[p.id] || "ostanato";
+});
 
 // ── AUTH SYSTEM ──────────────────────────────
 // Demo accounts (in real use, this would be a backend)
@@ -131,20 +162,155 @@ function buildCard(p) {
   return card;
 }
 
+const categoryDisplayNames = {
+  "plisani igracki": "Плишани Играчки",
+  "plis na baterija": "Плиш на Батерија",
+  "zenski": "Женски",
+  "maski": "Машки",
+  "bebeski": "Бебешки",
+  "edukativni": "Едукативни",
+  "drveni igracki": "Дрвени Играчки",
+  "turkala": "Туркала",
+  "kutii za poklon": "Кутија за Подарок",
+  "podlogi": "Подлоги",
+  "obuvki": "Обувки",
+  "vestacko cvekje": "Вештачко Цвеќе",
+  "ostanato": "Останато",
+  "ukrasi": "Украсувања",
+  "kutii za nakit": "Кутија за Накит",
+  "ramki za slika": "Рамки за Слика",
+  "ogledala": "Огледала",
+  "vazni": "Вази",
+  "lampi": "Лампи",
+  "solji": "Шолји",
+  "posluzavnici": "Послужавници",
+  "tekstil": "Текстил",
+  "papuci vozrasni": "Папучи Возрасни",
+  "novogodisno": "Новогодишно",
+  "leto": "Лето",
+  "veligden": "Велигден",
+  "sliki": "Слики",
+  "mebel": "Мебел",
+  "dekoracii": "Декорации"
+};
+
+function formatCategory(cat) {
+  return categoryDisplayNames[cat.toLowerCase()] || cat
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+function categorySlug(cat) {
+  return cat
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9\-]/g, "");
+}
+
+function renderCategoryMenu(categories) {
+  const menu = document.getElementById("categoryMenu");
+  if (!menu) return;
+
+  menu.innerHTML = "";
+  categories.forEach(cat => {
+    const label = formatCategory(cat);
+    const slug = categorySlug(cat);
+    const a = document.createElement("a");
+    a.href = `#${slug}`;
+    a.textContent = label;
+    menu.appendChild(a);
+  });
+}
+
 function renderProducts() {
-  const toysGrid = document.getElementById("toysGrid");
-  const homeGrid = document.getElementById("homeGrid");
+  const container = document.getElementById("productsContainer");
+  if (!container) return;
 
-  if (!toysGrid) return; // not on index page
+  container.innerHTML = "";
 
-  toysGrid.innerHTML = "";
-  homeGrid.innerHTML = "";
+  const categories = Array.from(new Set(products.map(p => p.category)));
+  renderCategoryMenu(categories);
 
-  products.forEach((p, i) => {
-    const card = buildCard(p);
-    card.style.animationDelay = `${i * 0.06}s`;
-    if (p.category === "toys") toysGrid.appendChild(card);
-    else if (p.category === "home") homeGrid.appendChild(card);
+  categories.forEach(category => {
+    const section = document.createElement("section");
+    const slug = categorySlug(category);
+    section.id = slug;
+    section.className = "section";
+
+    const categoryLabel = formatCategory(category);
+
+    section.innerHTML = `
+      <div class="section-header">
+        <div>
+          <h2>${categoryLabel}</h2>
+          <p class="section-subtitle">Сите производи од категоријата ${categoryLabel}.</p>
+        </div>
+      </div>
+      <div class="grid" id="${slug}Grid"></div>
+    `;
+
+    container.appendChild(section);
+
+    const grid = section.querySelector(".grid");
+    const catProducts = products.filter(p => p.category === category);
+    catProducts.forEach((p, i) => {
+      const card = buildCard(p);
+      card.style.animationDelay = `${i * 0.06}s`;
+      grid.appendChild(card);
+    });
+  });
+}
+
+function renderMainCategories() {
+  const container = document.getElementById("mainCategoriesGrid");
+  if (!container) return;
+
+  container.innerHTML = "";
+  
+  const mainCats = [
+    { label: "Производи за Дом", link: "category-home.html", slug: "home" },
+    { label: "Производи за Деца", link: "category-kids.html", slug: "kids" }
+  ];
+
+  mainCats.forEach(cat => {
+    const card = document.createElement("a");
+    card.href = cat.link;
+    card.className = "category-card";
+    
+    const representative = products.find(p => mainCategories[cat.slug]?.includes(p.category));
+    const image = representative ? representative.img : "logo.jpg";
+    
+    card.innerHTML = `
+      <div class="category-card-image" style="background-image:url('${image}')"></div>
+      <div class="category-card-title">${cat.label}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function renderCategoriesPage() {
+  const container = document.getElementById("categoriesGrid");
+  if (!container) return;
+
+  container.innerHTML = "";
+  const categories = Array.from(new Set(products.map(p => p.category)));
+
+  categories.forEach(category => {
+    const slug = categorySlug(category);
+    const representative = products.find(p => p.category === category);
+    const image = representative ? representative.img : "logo.jpg";
+    const card = document.createElement("a");
+
+    card.href = `index.html#${slug}`;
+    card.className = "category-card";
+    card.innerHTML = `
+      <div class="category-card-image" style="background-image:url('${image}')"></div>
+      <div class="category-card-title">${formatCategory(category)}</div>
+    `;
+    container.appendChild(card);
   });
 }
 
@@ -152,6 +318,33 @@ function renderProducts() {
 function openProduct(p) {
   const url = `product.html?id=${p.id}`;
   window.location.href = url;
+}
+
+const footerData = {
+  phone: "+389 78436266",
+  address: "МК, Тодосија Паунов 36, Кочани 2300",
+  email: "info@ideja.mk",
+  description: "Идеја е официјална онлајн продавница за играчки и производи за дом со фокус на квалитет и брза достава во Македонија. Достапни се повеќе од 40 производи и континуирано се додаваат нови понуди.",
+};
+
+function renderFooter() {
+  const contactEl = document.getElementById("footerContact");
+  const descEl = document.getElementById("footerDescription");
+
+  if (contactEl) {
+    contactEl.innerHTML = `
+      <p><strong>Контакт:</strong></p>
+      <p>📞 ${footerData.phone}</p>
+      <p>📧 ${footerData.email}</p>
+      <p>📍 ${footerData.address}</p>
+      <p>Facebook: <a href="https://www.facebook.com/IdejaGiftDecor/" target="_blank">IdejaGiftDecor</a></p>
+      <p>Instagram: <a href="https://www.instagram.com/ideja.kumanovo/" target="_blank">@ideja.kumanovo</a></p>
+    `;
+  }
+
+  if (descEl) {
+    descEl.innerHTML = `<p>${footerData.description}</p>`;
+  }
 }
 
 // ── CART FUNCTIONS ────────────────────────────
@@ -501,12 +694,8 @@ function toggleLang() {
 
 function applyTranslations() {
   const t = translations[lang];
-  const toysHead = document.querySelector("#toys h2");
-  const homeHead = document.querySelector("#home h2");
   const heroTitle = document.querySelector(".hero-text h2");
   const heroSub = document.querySelector(".hero-text p");
-  if (toysHead) toysHead.textContent = t.toys;
-  if (homeHead) homeHead.textContent = t.home;
   if (heroTitle) heroTitle.textContent = t.heroTitle;
   if (heroSub) heroSub.textContent = t.heroSub;
 }
@@ -520,9 +709,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (isProductPage) {
     loadProductPage();
+  } else if (document.body.classList.contains("categories-page-body")) {
+    renderCategoriesPage();
   } else {
-    renderProducts();
+    renderMainCategories();
   }
+
+  renderFooter();
 
   // Close cart on overlay click
   const overlay = document.getElementById("cartOverlay");
