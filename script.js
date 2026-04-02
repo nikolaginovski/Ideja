@@ -285,7 +285,7 @@ function renderMainCategories() {
     
     card.innerHTML = `
       <div class="category-card-image" style="background-image:url('${image}')"></div>
-      <div class="category-card-title">${cat.label}</div>
+      <div class="category-card-title">${cat.label}<span class="cat-arrow">→</span></div>
     `;
     container.appendChild(card);
   });
@@ -322,7 +322,7 @@ function openProduct(p) {
 
 const footerData = {
   phone: "+389 78436266",
-  address: "МК, Тодосија Паунов 36, Кочани 2300",
+  address: "МК, Улица 100 бр 85, Куманово 1300",
   email: "info@ideja.mk",
   description: "Идеја е официјална онлајн продавница за играчки и производи за дом со фокус на квалитет и брза достава во Македонија. Достапни се повеќе од 40 производи и континуирано се додаваат нови понуди.",
 };
